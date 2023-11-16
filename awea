@@ -1,0 +1,2 @@
+Autor ForeignKey(user, on_delete=CASCADE)
+Rating = PositiveIntegerField
