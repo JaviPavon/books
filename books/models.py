@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.core.validators import MaxValueValidator
 
 class Book(models.Model):
 
@@ -10,11 +11,11 @@ class Book(models.Model):
 
     author = models.CharField(max_length=10)
 
-    rating = models.PositiveIntegerField
+    rating = models.PositiveIntegerField(validators=[MaxValueValidator(5)])
 
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    updated_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
     def __str__(self):
