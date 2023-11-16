@@ -60,3 +60,20 @@ class BookEdit(View):
             form.save()
             return redirect('list_books')
         return render(request, self.nombre_template, {'form':form, 'books': books})
+
+class BookEdit(View):
+    nombre_template = 'books/edit_book.html'
+        
+    def get(self, request, pk):
+        book = Book.objects.get(id=pk)
+        form = BookForm(instance=book)
+        return render(request, self.nombre_template, {'form': form, 'book': book})
+
+    def post(self, request, pk):
+        book = Book.objects.get(id=pk)
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Después de guardar el formulario, el libro ya debería estar actualizado
+            return redirect('list_books')
+        return render(request, self.nombre_template, {'form': form, 'book': book})
