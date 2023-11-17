@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 <body class="text-center">
-    <form action="{% url 'list_books' %}" method="post">
+    <form action="{% url 'book_edit' pk=book.pk %}" method="post">
         {% csrf_token %}
         {{ form.as_p}}
         <button type="submit">Edit Book</button>

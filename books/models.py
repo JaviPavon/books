@@ -9,7 +9,7 @@ class Book(models.Model):
 
     description = models.TextField()
 
-    author = models.CharField(max_length=10)
+    author = models.CharField(max_length=100)
 
     rating = models.PositiveIntegerField(validators=[MaxValueValidator(5)])
 
