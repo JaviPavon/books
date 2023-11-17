@@ -1,33 +1,26 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    <title>Detalles del book</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body class="text-center">
+{% extends 'books/base.html' %}
+{% block content %}
     <div class="row pt-3">
-        <div class="col-4 offset-4">
+        <div class="col-6 offset-3">
             <div class="card text-center">
                 <div class="card-body">
-                    <h2 class="card-title"><a href="">{{ books.title }} </a></h2>
-                    <p class="card-text">{{ books.description|linebreaksbr }} </p>
+                    <div class="row">
+                        <div class="col-1"> <a href="{% url 'list_books' %}"><i class="flecha bi bi-arrow-return-left"></i></a></div>
+                        <h2 class="card-title col-10"><a href="">{{ book.title }} </a></h2>
+                    </div>
+                    <p class="card-text">{{ book.description|linebreaksbr }} </p>
                 <div class="row offset-3">
                     <div class="col-1"><a href="{% url 'book_edit' pk=book.pk %}" class="btn btn-primary">Edit</a></div>
-                    <div class="col-6 offset-2"> <a href="{% url 'list_books' %}" class="btn btn-warning">Return</a></div>
+                    <div class="col-4 offset-2"> <a href="{% url 'book_delete' pk=book.pk %}" class="btn btn-danger"><i class="bi bi-trash3"></i>Delete</a></div>
                 </div>
                 </div>
                 <div class="card-footer text-body-secondary">
-                    <p> Publicado: {{ books.created_at }}</p>
-                    <p> Actualizado: {{ books.updated_at }}</p>
+                    <p> Publicado: {{ book.created_at }}</p>
+                    <p> Actualizado: {{ book.updated_at }}</p>
                 </div>
             </div>
         </div>
     </div>
+    {% endblock %}
 </body>
 </html>

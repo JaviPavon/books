@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from django.utils import timezone
 
 from django.views import View
 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
 
 from .models import Book
 
@@ -16,17 +16,16 @@ from .forms import BookForm
 #         books = Book.objects.all()
 #         return render(request, self.nombre_template, {'books': books})
 
-# class BookDetails(View):
+# class DetailBookView(View):
 #     def get(self, request, pk):
 #         books = Book.objects.get(id=pk)
-#         return render(request, 'books/details_book.html', {'books': books})
+#         return render(request, 'books/book_detail.html', {'books': books})
 
 class ListBookView(ListView):
     model = Book
 
 class DetailBookView(DetailView):
     model = Book
-    template_name = 'books/book_detail.html'
 
 class BookCreate(View):
     
@@ -61,3 +60,13 @@ class BookEdit(View):
             form.save()
             return redirect('list_books')
         return render(request, self.nombre_template, {'form':form, 'book': book})
+    
+class DeleteBookView(View):
+    nombre_template = 'books/book_confirm_delete.html'
+    def get(self, request, pk):
+        book = Book.objects.get(id=pk)
+        return render(request, self.nombre_template, {'book': book})
+    def post(self,  request,pk):
+        book = get_object_or_404(Book, id=pk)
+        book.delete()
+        return redirect('list_books')
