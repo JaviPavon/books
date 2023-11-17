@@ -4,21 +4,30 @@ from django.utils import timezone
 
 from django.views import View
 
+from django.views.generic import ListView, DetailView
+
 from .models import Book
 
 from .forms import BookForm
  
-class ListBooks(View):
-    nombre_template = 'books/list_books.html'
-    def get(self, request):
-        books = Book.objects.all()
-        return render(request, self.nombre_template, {'books': books})
+# class ListBooks(View):
+#     nombre_template = 'books/list_books.html'
+#     def get(self, request):
+#         books = Book.objects.all()
+#         return render(request, self.nombre_template, {'books': books})
 
-class BookDetails(View):
-    def get(self, request, pk):
-        books = Book.objects.get(id=pk)
-        return render(request, 'books/details_book.html', {'books': books})
-    
+# class BookDetails(View):
+#     def get(self, request, pk):
+#         books = Book.objects.get(id=pk)
+#         return render(request, 'books/details_book.html', {'books': books})
+
+class ListBookView(ListView):
+    model = Book
+
+class DetailBookView(DetailView):
+    model = Book
+    template_name = 'books/book_detail.html'
+
 class BookCreate(View):
     
     nombre_template = 'books/create_book.html'

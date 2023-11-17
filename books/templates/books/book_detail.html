@@ -18,7 +18,7 @@
                     <h2 class="card-title"><a href="">{{ books.title }} </a></h2>
                     <p class="card-text">{{ books.description|linebreaksbr }} </p>
                 <div class="row offset-3">
-                    <div class="col-1"><a href="{% url 'book_edit' pk=books.pk %}" class="btn btn-primary">Edit</a></div>
+                    <div class="col-1"><a href="{% url 'book_edit' pk=book.pk %}" class="btn btn-primary">Edit</a></div>
                     <div class="col-6 offset-2"> <a href="{% url 'list_books' %}" class="btn btn-warning">Return</a></div>
                 </div>
                 </div>
