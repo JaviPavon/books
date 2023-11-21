@@ -9,14 +9,25 @@
     <title>Document</title>
 </head>
 <body class="text-center">
-    <div class="card">
-        <div class="card-body">
-            <form action="{% url 'book_creation' %}" method="post">
-                {% csrf_token %}
-                {{ form.as_p}}
-                <button type="submit" value="Save">Create Book</button>
-            </form>
-        </div>
-    </div>
+    
+        <form action="{% url 'book_creation4' %}" method="post">
+            {% csrf_token %}
+            {{ form.management_form }}
+            <div class="row">
+            {% for form in forms %}
+            
+            <div class="col-6 p-3">
+                <div class="card">
+                    <div class="card-body">
+                        {{ form.as_p}}
+                    </div>
+                </div>
+            </div>
+            
+            {% endfor %}
+            </div>
+            <button type="submit" value="Save">Create Book</button>
+        </form>
+    
 </body>
 </html>

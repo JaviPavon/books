@@ -4,7 +4,7 @@
     {% for book in object_list %}
 
             <div class="col-4 p-3">
-                <div class="card text-center">
+                <div class="cardlist card text-center">
                     <div class="card-body">
                         <h2 class="card-title"><a href="{% url 'book_details' pk=book.pk %}">{{ book.title }} </a></h2>
                     </div>

@@ -20,7 +20,21 @@ h1 a, h2 a {
     color: #ffffff;
 }
 
+.plus3{
+    font-size: 50px;
+    color: #ffffff;
+}
+
 .flecha{
     font-size: 45px;
     color: purple;
+}
+
+.cardlist{
+    transition: .5s;
+    box-shadow: 5px;
+}
+
+.card:hover{
+    transform: translateY(-10px);
 }
