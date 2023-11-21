@@ -47,14 +47,12 @@ class DeleteBookView(DeleteView):
 
 class BookFormset(View):
     nombre_template = "books/book_formset.html"
-    numero = Book.formularios
-    numero_formularios = Book.objects.get(id=numero)
 
     def get(self, request):
         return render(
             request,
             self.nombre_template,
-            context={"forms": formset_factory(BookForm, extra=self.numero_formularios)},
+            context={"forms": formset_factory(BookForm, extra=4)},
         )
 
     def post(self, request):
