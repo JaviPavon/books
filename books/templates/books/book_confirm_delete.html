@@ -29,8 +29,9 @@
             {% csrf_token %}
             
 
-            <h2>Are you sure that you want to delete the book?</h2>
-                <button type="submit" class="btn btn-danger">Yes</button>
+            <h2>Are you sure that you want to delete "{{ object }}"?</h2>
+            {{ form }}
+                <button type="submit" value="Confirm" class="btn btn-danger">Yes</button>
                 <a class="btn btn-primary" href="{% url 'list_books' %}">Cancel</a>
           </form>
 </body>
