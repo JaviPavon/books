@@ -5,12 +5,38 @@ from django.utils import timezone
 
 from django.views import View
 
-from django.views.generic import ListView, DetailView, DeleteView, UpdateView
+from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 
 from .models import Book
 
 from .forms import BookForm
- 
+
+
+class ListBookView(ListView):
+    model = Book
+
+class DetailBookView(DetailView):
+    model = Book
+
+
+class BookCreate(CreateView):
+    model = Book
+    fields = ['title','description','rating', 'author']
+    success_url = reverse_lazy("list_books")
+
+
+
+class BookEdit(UpdateView):
+    model = Book
+    fields = ['title','description','rating', 'author']
+    template_name_suffix = "_update_form"
+    success_url = reverse_lazy("list_books")
+
+
+class DeleteBookView(DeleteView):
+    model = Book
+    success_url = reverse_lazy("list_books")
+
 # class ListBooks(View):
 #     nombre_template = 'books/list_books.html'
 #     def get(self, request):
@@ -22,29 +48,29 @@ from .forms import BookForm
 #         books = Book.objects.get(id=pk)
 #         return render(request, 'books/book_detail.html', {'books': books})
 
-class ListBookView(ListView):
-    model = Book
 
-class DetailBookView(DetailView):
-    model = Book
 
-class BookCreate(View):
+
+# class BookCreate(View):
     
-    nombre_template = 'books/create_book.html'
-    books = Book.objects.filter(created_at__lte=timezone.now()).order_by('created_at')
+#     nombre_template = 'books/create_book.html'
+#     books = Book.objects.filter(created_at__lte=timezone.now()).order_by('created_at')
 
         
-    def get(self, request):
-        form = BookForm()
-        return render(request, self.nombre_template, {'form': form, 'books': Book.objects.all()})
+#     def get(self, request):
+#         form = BookForm()
+#         return render(request, self.nombre_template, {'form': form, 'books': Book.objects.all()})
 
-    def post(self, request):
-        form = BookForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('list_books')
-        return render(request, self.nombre_template, {'form':form, 'books': Book.objects.all()})
-    
+#     def post(self, request):
+#         form = BookForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('list_books')
+#         return render(request, self.nombre_template, {'form':form, 'books': Book.objects.all()})
+
+
+
+
 # class BookEdit(View):
     
 #     nombre_template = 'books/edit_book.html'
@@ -63,13 +89,6 @@ class BookCreate(View):
 #         return render(request, self.nombre_template, {'form':form, 'book': book})
 
 
-class BookEdit(UpdateView):
-    model = Book
-    fields = ['title','description','rating', 'author']
-    template_name_suffix = "_update_form"
-    success_url = reverse_lazy("list_books")
-
-    
 # class DeleteBookView(View):
 #     nombre_template = 'books/book_confirm_delete.html'
 #     def get(self, request, pk):
@@ -79,7 +98,3 @@ class BookEdit(UpdateView):
 #         book = get_object_or_404(Book, id=pk)
 #         book.delete()
 #         return redirect('list_books')
-
-class DeleteBookView(DeleteView):
-    model = Book
-    success_url = reverse_lazy("list_books")
